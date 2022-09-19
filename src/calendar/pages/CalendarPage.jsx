@@ -4,6 +4,7 @@ import { Calendar } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { CalendarEvent, CalendarModal, Navbar } from '../';
 import { localizer, getMessages } from '../../helpers';
+import { useUIStore } from '../../hooks';
 const events = [
    {
       title: 'Birthday',
@@ -19,6 +20,7 @@ const events = [
 ];
 
 export const CalendarPage = () => {
+   const { openDateModal } = useUIStore();
    const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'week');
 
    const eventStyleGetter = () => {
@@ -33,7 +35,7 @@ export const CalendarPage = () => {
    };
 
    const onDoubleClick = (event) => {
-      console.log({ doubleClick: event });
+      openDateModal();
    };
    const onSelect = (event) => {
       console.log({ click: event });

@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import { useUIStore } from '../../hooks';
 
 const customStyles = {
    content: {
@@ -21,7 +22,7 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 export const CalendarModal = () => {
-   const [isOpen, setIsOpen] = useState(true);
+   const { isDateModalOpen, closeDateModal } = useUIStore();
    const [formSubmitted, setFormSubmitted] = useState(false);
 
    const [formValues, setFormValues] = useState({
@@ -45,8 +46,8 @@ export const CalendarModal = () => {
    };
 
    const onCloseModal = () => {
-      console.log('modal closing');
-      setIsOpen(false);
+      /* This function tells me when i have a click outside of the modal */
+      closeDateModal();
    };
 
    const onSubmit = (e) => {
@@ -70,8 +71,8 @@ export const CalendarModal = () => {
 
    return (
       <Modal
-         isOpen={isOpen}
          style={customStyles}
+         isOpen={isDateModalOpen}
          onRequestClose={onCloseModal}
          className='modal'
          overlayClassName='modal-background'
